@@ -1,0 +1,27 @@
+<h1><%= @place.name %></h1>
+<p>Here’s what I did here:</p>
+<ul>
+  <% if @place.entries.present? %>
+    <% @place.entries.each do |entry| %>
+      <li>
+        <%= entry.title %>
+        <br><%= entry.date %>
+        <br><%= entry.description %>
+        <%= link_to "Edit", edit_place_entry_path(@place, entry) %>
+        <form action="<%= place_entry_path(@place, entry) %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <button>Delete</button>
+        </form>
+      </li>
+    <% end %>
+  <% else %>
+    <li>No entries yet.</li>
+  <% end %>
+</ul>
+<%= link_to "New Post", new_place_entry_path(@place) %>
+<p><%= link_to "Back to All Places", places_path %></p>
+<%= link_to "Edit Place", edit_place_path(@place) %>
+<form action="<%= place_path(@place) %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button>Delete Place</button>
+</form>
